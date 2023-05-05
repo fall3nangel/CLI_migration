@@ -1,4 +1,5 @@
 import csv
+import asyncio
 import os
 import zipfile
 from argparse import ArgumentParser
@@ -14,12 +15,12 @@ def object_as_dict(obj):
             for c in inspect(obj).mapper.column_attrs}
 
 
-def do_import(path: str):
-    Model.metadata.drop_all(engine)  # warning: this deletes all data!
-    Model.metadata.create_all(engine)
-
-    with Session() as session:
-        with session.begin():
+async def do_import(path: str):
+    async with engine.begin() as connection:
+        await connection.run_sync(Model.metadata.drop_all)  # warning: this deletes all data!
+        await connection.run_sync(Model.metadata.create_all)
+    async with Session() as session:
+        async with session.begin():
             with open(path) as f:
                 reader = csv.DictReader(f, delimiter=';')
                 for row in reader:
@@ -32,13 +33,13 @@ def do_import(path: str):
                     session.add(user)
                     user.users_roles.append(role)
                     user.addresses.append(addr)
-    os.remove(path)
+    os.remove(path)  # not async - replace to aiofiles
     print('Import successful')
 
 
-def do_export(path: str):
-    with Session() as session:
-        with session.begin():
+async def do_export(path: str):
+    async with Session() as session:
+        async with session.begin():
             with open(path, 'w', newline='') as f:
                 query = select(User)
                 fieldnames = list([column.name for column in User.__table__.columns])
@@ -53,18 +54,17 @@ def do_export(path: str):
     print('Zip file created')
 
 
-def main():
+async def main():
     parser = ArgumentParser(description='Upload and download content of User database')
     parser.add_argument('-i', '--do_import', action='store_true', help='Import content of CSV file to Users DB')
     parser.add_argument('-e', '--do_export', action='store_true', help='Export content of Users DB to CSV file')
     parser.add_argument('path')
     args = parser.parse_args()
     if args.do_import:
-        do_import(args.path)
+        await do_import(args.path)
     elif args.do_export:
-        do_export(args.path)
+        await do_export(args.path)
 
 
 if __name__ == '__main__':
-    main()
-
+    asyncio.run(main())
