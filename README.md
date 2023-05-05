@@ -14,3 +14,12 @@ CLI for user bulk-upload/migration:
 13) Project dependencies in the form of: requirements.txt
 14) Provide code comments, docstrings and typing annotations [bonus].  
 15) Ensure your project is functional - this is obvious
+
+Stack:
+-   Python 3.8+
+-   PostgreSQL
+-   Asyncpg
+-   SQLAlchemy
+-   Asyncio
+-   Pytest
+-   Docker
