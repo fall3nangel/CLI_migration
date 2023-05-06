@@ -25,7 +25,7 @@ async def do_import(path: str):
                 reader = csv.DictReader(f, delimiter=';')
                 for row in reader:
                     role_type = row.pop('role_type')
-                    role = UserRole(role_type=role_type)
+                    role = UserRole(role_type=int(role_type))
                     user_name = row.pop('first_name')
                     user_l_name = row.pop('last_name')
                     addr = Address(**row)
