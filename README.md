@@ -23,3 +23,11 @@ Stack:
 -   Asyncio
 -   Pytest
 -   Docker
+
+Usage
+- ```docker-compose up -d``` Run Postgree
+- ```python3 main.py -oi users_roles_addr.csv``` Import content of CSV file to Users DB using ORM
+- ```python3 main.py -oe users.csv``` Export content of Users DB to CSV file using ORM
+- ```python3 main.py -si users_roles_addr.csv``` Import content of CSV file to Users DB using SQL
+- ```python3 main.py -se users_roles_addr.csv``` Export content of Users DB to CSV file using SQL
+ 
