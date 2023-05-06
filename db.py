@@ -19,5 +19,5 @@ class Model(DeclarativeBase):
 
 load_dotenv()
 
-engine = create_async_engine(os.environ['DATABASE_URL'])
+engine = create_async_engine(os.environ['DATABASE_URL_ORM'])
 Session = async_sessionmaker(engine, expire_on_commit=False)
