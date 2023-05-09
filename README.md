@@ -26,6 +26,7 @@ Stack:
 
 Usage
 - ```docker-compose up -d``` Run Postgree
+- ``` mv .env.example .env``` Rename .env.example to .env
 - ```python3 main.py -oi users_roles_addr.csv``` Import content of CSV file to Users DB using ORM
 - ```python3 main.py -oe users.csv``` Export content of Users DB to CSV file using ORM
 - ```python3 main.py -si users_roles_addr.csv``` Import content of CSV file to Users DB using SQL

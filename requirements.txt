@@ -1,5 +1,13 @@
 asyncpg==0.27.0
+exceptiongroup==1.1.1
 greenlet==2.0.2
+iniconfig==2.0.0
+packaging==23.1
+pluggy==1.0.0
+psycopg2-binary==2.9.6
+pytest==7.3.1
+pytest-asyncio==0.21.0
 python-dotenv==1.0.0
 SQLAlchemy==2.0.12
+tomli==2.0.1
 typing_extensions==4.5.0
