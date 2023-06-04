@@ -1,3 +1,7 @@
+PostgreeSQL
+asyncio
+SQLAlchemy 
+pytest
 
 Usage
 - ```docker-compose up -d``` Run Postgree
